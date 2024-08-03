@@ -1,0 +1,4 @@
+lxc.mount.entry = tmpfs /run/waydroid none create=dir 0 0
+lxc.mount.entry = /var/run/pipewire/wayland-0 run/waydroid/wayland-0 none rbind,create=file 0 0
+lxc.mount.entry = /opt/games/run/waydroid/pulse run/waydroid/pulse none rbind,create=dir,optional 0 0
+lxc.mount.entry = /home/waydroid/data data none rbind 0 0
