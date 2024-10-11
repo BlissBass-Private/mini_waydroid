@@ -5,7 +5,7 @@ lxc.mount.entry = /dev/full dev/full none bind,create=file,optional 0 0
 lxc.mount.entry = /dev/fuse dev/fuse none bind,create=file,optional 0 0
 lxc.mount.entry = /dev/tty dev/tty none bind,create=file,optional 0 0
 lxc.mount.entry = /dev/char dev/char none bind,create=dir,optional 0 0
-lxc.mount.entry = /dev/input/event3 dev/input/event0 none bind,create=file,optional 0 0
+#lxc.mount.entry = /dev/input/event3 dev/input/event0 none bind,create=file,optional 0 0
 lxc.mount.entry = /dev/dri/renderD128 dev/dri/renderD128 none bind,create=file,optional 0 0
 lxc.mount.entry = /dev/dri/card0 dev/dri/card0 none bind,create=file,optional 0 0
 lxc.mount.entry = /dev/fb0 dev/fb0 none bind,create=file,optional 0 0
