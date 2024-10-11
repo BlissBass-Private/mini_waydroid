@@ -2,9 +2,10 @@
 
 mkdir -p /tmp/waydroid
 cd /tmp/waydroid
-curl -O https://github.com/BlissBass-Private/mini_waydroid/archive/refs/heads/main.zip
-unzip main.zip
+curl -O https://codeload.github.com/BlissBass-Private/mini_waydroid/zip/refs/heads/main
+mv main mini_waydroid-main.zip
+unzip mini_waydroid-main.zip
 mkdir -p /home/waydroid
-cp -fpr main/* /home/waydroid/
+cp -fpr mini_waydroid-main/* /home/waydroid/
 
-rm -rf main.zip main
+rm -rf mini_waydroid-main.zip mini_waydroid-main

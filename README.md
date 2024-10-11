@@ -1,6 +1,6 @@
 # Setup or Update
 ```
-curl -s https://github.com/BlissBass-Private/mini_waydroid/raw/refs/heads/main/setup.sh | bash
+curl -s https://raw.githubusercontent.com/BlissBass-Private/mini_waydroid/refs/heads/main/setup.sh | bash
 ```
 
 # Images
