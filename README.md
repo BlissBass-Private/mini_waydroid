@@ -16,6 +16,13 @@ curl -s https://raw.githubusercontent.com/BlissBass-Private/mini_waydroid/refs/h
 /tmp/waydroid/scripts/start.sh
 ```
 
+# Add input
+
+This needs to be done after starting Waydroid
+```
+/tmp/waydroid/scripts/add_input.sh
+```
+
 # Stop
 ```
 /tmp/waydroid/scripts/stop.sh
