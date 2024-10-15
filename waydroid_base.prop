@@ -15,3 +15,6 @@ waydroid.host.gid=0
 waydroid.host_data_path=/home/waydroid/data
 waydroid.background_start=false
 waydroid.stub_sensors_hal=1
+debug.sf.nobootanimation=1
+persist.waydroid.uevent=true
+persist.waydroid.udev=true
