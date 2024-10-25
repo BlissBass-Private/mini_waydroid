@@ -14,6 +14,23 @@ else
     echo "vnic is waydroid0"
 fi
 
+function find_unused_port() {
+    while true; do
+        upper=65535
+        lower=1025
+        PORT=$(($RANDOM%($upper-$lower+1)+$lower))
+        if ! nc -z localhost $PORT 2>/dev/null; then
+            echo $PORT
+            break
+        fi
+    done
+}
+
+PORT1=$(find_unused_port)
+PORT2=$(find_unused_port)
+echo "Port1: $PORT1"
+echo "Port2: $PORT2"
+
 USE_LXC_BRIDGE="true"
 LXC_BRIDGE="${vnic}"
 LXC_BRIDGE_MAC="00:16:3e:00:00:01"
@@ -88,10 +105,10 @@ start_iptables() {
     if [ -n "$LXC_IPV6_ARG" ] && [ "$LXC_IPV6_NAT" = "true" ]; then
         $IP6TABLES_BIN $use_iptables_lock -t nat -A POSTROUTING -s ${LXC_IPV6_NETWORK} ! -d ${LXC_IPV6_NETWORK} -j MASQUERADE
     fi
-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport 67 -j ACCEPT
-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport 67 -j ACCEPT
-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport 53 -j ACCEPT
-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport 53 -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport ${PORT2} -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport ${PORT2} -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport ${PORT1} -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport ${PORT1} -j ACCEPT
     $IPTABLES_BIN $use_iptables_lock -I FORWARD -i ${LXC_BRIDGE} -j ACCEPT
     $IPTABLES_BIN $use_iptables_lock -I FORWARD -o ${LXC_BRIDGE} -j ACCEPT
     $IPTABLES_BIN $use_iptables_lock -t nat -A POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE
@@ -113,8 +130,8 @@ add rule ip6 lxc postrouting ip saddr ${LXC_IPV6_NETWORK} ip daddr != ${LXC_IPV6
 add table inet lxc;
 flush table inet lxc;
 add chain inet lxc input { type filter hook input priority 0; };
-add rule inet lxc input iifname ${LXC_BRIDGE} udp dport { 53, 67 } accept;
-add rule inet lxc input iifname ${LXC_BRIDGE} tcp dport { 53, 67 } accept;
+add rule inet lxc input iifname ${LXC_BRIDGE} udp dport { ${PORT1}, ${PORT2} } accept;
+add rule inet lxc input iifname ${LXC_BRIDGE} tcp dport { ${PORT1}, ${PORT2} } accept;
 add chain inet lxc forward { type filter hook forward priority 0; };
 add rule inet lxc forward iifname ${LXC_BRIDGE} accept;
 add rule inet lxc forward oifname ${LXC_BRIDGE} accept;
@@ -196,13 +213,32 @@ start() {
     if [ ! -d "${varlib}"/misc ]; then
         mkdir "${varlib}"/misc
     fi
+    
+    # Debugging Info
+    echo ""
+    echo "Debugging Info"
+    echo ""
+    echo "LXC_DHCP_CONFILE_ARG: $LXC_DHCP_CONFILE_ARG "
+    echo "LXC_DOMAIN_ARG: $LXC_DOMAIN_ARG"
+    echo "LXC_DHCP_PING_ARG: $LXC_DHCP_PING_ARG"
+    echo "DNSMASQ_USER: ${DNSMASQ_USER}"
+    echo "varrun: ${varrun}"
+    echo "LXC_ADDR: ${LXC_ADDR}"
+    echo "LXC_DHCP_RANGE: ${LXC_DHCP_RANGE}"
+    echo "LXC_DHCP_MAX: ${LXC_DHCP_MAX}"
+    echo "LXC_BRIDGE: ${LXC_BRIDGE}"
+    echo "varlib: ${varlib}"
+    echo "LXC_IPV6_ARG: $LXC_IPV6_ARG"
+    echo ""
 
-    /usr/sbin/dnsmasq $LXC_DHCP_CONFILE_ARG $LXC_DOMAIN_ARG $LXC_DHCP_PING_ARG -u ${DNSMASQ_USER} \
+    /usr/sbin/dnsmasq $LXC_DHCP_CONFILE_ARG  \
+    	    $LXC_DOMAIN_ARG $LXC_DHCP_PING_ARG -u ${DNSMASQ_USER} \
             --strict-order --bind-interfaces --pid-file="${varrun}"/dnsmasq.pid \
             --listen-address ${LXC_ADDR} --dhcp-range ${LXC_DHCP_RANGE} \
             --dhcp-lease-max=${LXC_DHCP_MAX} --dhcp-no-override \
             --except-interface=lo --interface=${LXC_BRIDGE} \
             --dhcp-leasefile="${varlib}"/misc/dnsmasq.${LXC_BRIDGE}.leases \
+            --log-facility=- --log-queries=extra --log-dhcp --log-debug \
             --dhcp-authoritative $LXC_IPV6_ARG || cleanup
 
     touch "${varrun}"/network_up
@@ -210,10 +246,10 @@ start() {
 }
 
 stop_iptables() {
-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport 67 -j ACCEPT
-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport 67 -j ACCEPT
-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport 53 -j ACCEPT
-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport 53 -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport ${PORT2} -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport ${PORT2} -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport ${PORT1} -j ACCEPT
+    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport ${PORT1} -j ACCEPT
     $IPTABLES_BIN $use_iptables_lock -D FORWARD -i ${LXC_BRIDGE} -j ACCEPT
     $IPTABLES_BIN $use_iptables_lock -D FORWARD -o ${LXC_BRIDGE} -j ACCEPT
     $IPTABLES_BIN $use_iptables_lock -t nat -D POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE
