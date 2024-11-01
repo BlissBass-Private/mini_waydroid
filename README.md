@@ -20,7 +20,7 @@ curl -s https://raw.githubusercontent.com/BlissBass-Private/mini_waydroid/refs/h
 
 This needs to be done after starting Waydroid
 ```
-/tmp/waydroid/scripts/add_input.sh
+/tmp/waydroid/scripts/add_inputs.sh
 ```
 
 # Stop
