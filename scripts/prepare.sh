@@ -22,4 +22,4 @@ chmod 0755 /tmp/waydroid/scripts/*
 . /home/waydroid/scripts/rc.apparmor.functions
 apparmor_stop
 
-DISPLAY=:0 XDG_RUNTIME_DIR=/var/run/pipewire PULSE_RUNTIME_PATH=/opt/games/run/waydroid/pulse /tmp/waydroid/tools/cage pipewire-pulse
+PIPEWIRE_NODE=amethyst DISPLAY=:0 XDG_RUNTIME_DIR=/var/run/pipewire PULSE_RUNTIME_PATH=/opt/games/run/waydroid/pulse /tmp/waydroid/tools/cage pipewire-pulse
