@@ -4,11 +4,11 @@ curl -s https://raw.githubusercontent.com/BlissBass-Private/mini_waydroid/refs/h
 ```
 
 # Images
-- Download images to /home/waydroid/images/
+- Download images to /opt/games/usr/waydroid/images/
 
 # Prepare
 ```
-. /home/waydroid/scripts/prepare.sh
+. /opt/games/usr/waydroid/scripts/prepare.sh
 ```
 
 # Start

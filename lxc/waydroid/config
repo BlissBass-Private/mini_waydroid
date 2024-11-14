@@ -11,15 +11,15 @@ lxc.mount.auto = cgroup:ro sys:ro proc
 
 lxc.console.path = none
 
-lxc.include = /home/waydroid/lxc/waydroid/config_nodes
-lxc.include = /home/waydroid/lxc/waydroid/config_session
+lxc.include = /opt/games/usr/waydroid/lxc/waydroid/config_nodes
+lxc.include = /opt/games/usr/waydroid/lxc/waydroid/config_session
 
 lxc.hook.post-stop = /dev/null
 
 lxc.uts.name = waydroid
 
 #lxc.apparmor.profile = lxc-waydroid
-lxc.seccomp.profile = /home/waydroid/lxc/waydroid/waydroid.seccomp
+lxc.seccomp.profile = /opt/games/usr/waydroid/lxc/waydroid/waydroid.seccomp
 
 lxc.no_new_privs = 1
 

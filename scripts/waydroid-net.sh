@@ -4,7 +4,7 @@ varrun="/opt/games/run/waydroid/waydroid-lxc"
 varlib="/opt/games/run/waydroid"
 net_link_key="lxc.net.0.link"
 case "$(lxc-info --version)" in [012].*) net_link_key="lxc.network.link" ;; esac
-vnic=$(awk "\$1 == \"$net_link_key\" {print \$3}" /home/waydroid/lxc/waydroid/config)
+vnic=$(awk "\$1 == \"$net_link_key\" {print \$3}" /opt/games/usr/waydroid/lxc/waydroid/config)
 : ${vnic:=waydroid0}
 
 if [ "$vnic" != "waydroid0" ]; then

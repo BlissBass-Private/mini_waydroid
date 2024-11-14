@@ -1,5 +1,5 @@
 #!/bin/bash
 
-mkdir -p /home/waydroid
-cp -fpr * /home/waydroid/
+mkdir -p /opt/games/usr/waydroid
+cp -fpr * /opt/games/usr/waydroid/
 

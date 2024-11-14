@@ -5,7 +5,7 @@ cd /tmp/waydroid
 curl -O https://codeload.github.com/BlissBass-Private/mini_waydroid/zip/refs/heads/main
 mv main mini_waydroid-main.zip
 unzip mini_waydroid-main.zip
-mkdir -p /home/waydroid
-cp -fpr mini_waydroid-main/* /home/waydroid/
+mkdir -p /opt/games/usr/waydroid
+cp -fpr mini_waydroid-main/* /opt/games/usr/waydroid/
 
 rm -rf mini_waydroid-main.zip mini_waydroid-main
