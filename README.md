@@ -32,3 +32,13 @@ This needs to be done after starting Waydroid
 ```
 /tmp/waydroid/scripts/shell.sh
 ```
+
+# Launch Apps
+```
+/tmp/waydroid/scripts/start_app.sh <app_name>
+```
+Example:
+```
+/tmp/waydroid/scripts/start_app.sh com.aurora.store
+```
+
