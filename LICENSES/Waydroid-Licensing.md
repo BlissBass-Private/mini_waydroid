@@ -8,13 +8,11 @@ Waydroid is available under different licensing options designed to accommodate 
 
 Waydroid also contains third-party code that is licensed under specific open-source licenses from the original authors (See **Third-Party Code in Waydroid** below).
 
-**Note:** For open-source licensed Waydroid, some specific parts (addons) are available under the [GNU General Public License (GPL)](https://doc.qt.io/qt-6/gpl.html). See the list of Waydroid modules for details. For commercial licensees, all addons are available under individual, commercial Waydroid licenses.
+**Note:** For open-source licensed Waydroid, some specific parts (addons) are available under the [GNU General Public License (GPL)](https://www.gnu.org/licenses/gpl-3.0.en.html). See the list of Waydroid modules for details. For commercial licensees, all addons are available under individual, commercial Waydroid licenses.
 
-*Waydroid **documentation*** is available under commercial licenses from Navotpala Tech (Bliss Co-Labs), and under the terms of the [GNU Free Documentation License (FDL)](https://doc.qt.io/qt-6/fdl.html) version 1.3, as published by the Free Software Foundation.
+*Waydroid **documentation*** is available under commercial licenses from Navotpala Tech (Bliss Co-Labs), and under the terms of the [GNU Free Documentation License (FDL)](http://www.gnu.org/copyleft/fdl.html) version 1.3, as published by the Free Software Foundation.
 
 ***Waydroid components*** are available under commercial licenses from Navotpala Tech (Bliss Co-Labs), and under a GNU GPL version 3 license.
-
-[Educational licenses](https://qt.io/qt-educational-license) are available for students and educators in qualified educational institutions or universities.
 
 # Purchasing and Sales Information
 
