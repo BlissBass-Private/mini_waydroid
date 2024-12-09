@@ -14,11 +14,9 @@ Waydroid also contains third-party code that is licensed under specific open-sou
 
 ***Waydroid components*** are available under commercial licenses from Navotpala Tech (Bliss Co-Labs), and under a GNU GPL version 3 license.
 
-# Purchasing and Sales Information
+# Licensing, Purchasing and Sales Information
 
-To purchase a Waydroid license, contact us with your request.
-
-For further information and assistance about Waydroid licensing, contact our sales; see [https://navotpala.tech](https://navotpala.tech)  for contact details.
+Navotpala Tech handles all commercial aspects of Waydroid licensing. To purchase a license or for assistance, contact via [https://navotpala.tech](https://navotpala.tech) 
 
 # Third-Party Code in Waydroid
 
